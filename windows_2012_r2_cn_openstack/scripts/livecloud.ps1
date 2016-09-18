@@ -15,7 +15,7 @@ function download($url, $dest) {
     ( New-Object System.Net.WebClient).DownloadFile( $url, $dest)
 }
 
-$url = "http://172.16.2.254/Packer/"
+$url = "http://192.166.69.12/Softwares/OS/"
 $bin_dir = "C:\Windows\System32\"
 $tmp_dir = "C:\Windows\Temp\"
 
