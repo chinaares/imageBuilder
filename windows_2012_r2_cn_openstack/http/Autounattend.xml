@@ -52,9 +52,10 @@
           <WillShowUI>OnError</WillShowUI>
           <InstallToAvailablePartition>false</InstallToAvailablePartition>
           <InstallFrom>
+			<!-- Select Windows Image: now use iso is SERVER STANDARD,so option value:SERVERSTANDARD and SERVERSTANDARDCORE , SERVERENTERPRISE not supported-->
             <MetaData wcm:action="add">
               <Key>/IMAGE/NAME</Key>
-              <Value>Windows Server 2012 R2 SERVERENTERPRISE</Value>
+              <Value>Windows Server 2012 R2 SERVERSTANDARD</Value>
             </MetaData>
           </InstallFrom>
         </OSImage>
