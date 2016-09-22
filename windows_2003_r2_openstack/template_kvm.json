@@ -7,8 +7,8 @@
     "disk_size": "51200",
     "ssh_port": "22",
     "ssh_wait_timeout": "8h",
-    "iso_url": "http://172.16.2.254/Packer/isos/cn_win_srv_2003_r2_enterprise_64bit_with_sp2_virtio.iso",
-    "iso_md5": "1662a1a202a03462212a3cbf1e69edc3",
+    "iso_url": "http://192.166.69.12/Softwares/OS/win2003R2/cn_win_srv_2003_r2_enterprise_x64_with_sp2_vl_cd1_X13-47314.iso",
+    "iso_md5": "B626EEC4BF0C6A95A9233A93A4DE6081",
     "vm_name": "{{env `VM_NAME`}}"
   },
   "builders": [
@@ -24,7 +24,7 @@
       "qemu_binary": "/usr/bin/qemu-kvm",
       "qemuargs": [
           [ "-m", "size={{user `memory`}}" ],
-          [ "-smp", "4,sockets=2,cores={{user `core`}},threads=1" ]
+          [ "-smp", "2,sockets=1,cores={{user `core`}},threads=1" ]
       ],
       "disk_size": "{{user `disk_size`}}",
       "http_directory": "http",
