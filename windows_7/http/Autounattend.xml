@@ -12,7 +12,6 @@
               <Order>1</Order>
               <Type>Primary</Type>
               <Size>50000</Size>
-              <Extend>true</Extend>
             </CreatePartition>
           </CreatePartitions>
           <ModifyPartitions>
@@ -22,7 +21,7 @@
               <Letter>C</Letter>
               <Order>1</Order>
               <PartitionID>1</PartitionID>
-              <Label>Windows 7</Label>
+              <Label>Windows7</Label>
             </ModifyPartition>
           </ModifyPartitions>
           <DiskID>0</DiskID>
