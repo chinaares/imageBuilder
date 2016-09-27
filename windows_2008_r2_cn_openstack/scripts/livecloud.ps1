@@ -21,7 +21,7 @@ $tmp_dir = "C:\Windows\Temp\"
 
 download $url"tools/7za.exe" $bin_dir"7za.exe"
 download $url"tools/curl.exe" $bin_dir"curl.exe"
-download $url"tools/virtiodriver2k8_openstack.tar.gz" $tmp_dir"virtiodriver.tar.gz"
+download $url"tools/virtiodriver2008R2_openstack.tar.gz" $tmp_dir"virtiodriver.tar.gz"
 download $url"tools/virtio/guest-agent/qemu-ga-x64.msi" $tmp_dir"qemu-ga-x86_64.msi"
 download $url"tools/CloudbaseInitSetup_x64.msi" $tmp_dir"cloudbase.msi"
 
