@@ -7,7 +7,7 @@ echo "starting vm ... ..."
 NAME="$1"
 DISK_FILE="$2,if=none,id=drive-scsi0-0-0-0,cache=writeback"
 
-/usr/bin/qemu-kvm \
+/usr/bin/kvm \
 -name $NAME \
 -m size=4096 \
 -drive file=$DISK_FILE  \

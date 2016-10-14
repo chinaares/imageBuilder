@@ -21,7 +21,7 @@
       "iso_checksum_type": "md5",
       "output_directory": "disk",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "qemu_binary": "/usr/bin/qemu-kvm",
+      "qemu_binary": "/usr/bin/kvm",
       "qemuargs": [
           [ "-m", "size={{user `memory`}}" ],
           [ "-smp", "2,sockets=1,cores={{user `core`}},threads=1" ]
