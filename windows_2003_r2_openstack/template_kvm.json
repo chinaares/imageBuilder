@@ -45,7 +45,9 @@
       "floppy_files": [
         "http/unattend.txt",
         "scripts/microsoft-updates.bat",
-        "scripts/openssh.ps1"
+        "scripts/*.bat",
+        "scripts/*.ps1",
+        "virtio/*"
       ]
     }
   ],
