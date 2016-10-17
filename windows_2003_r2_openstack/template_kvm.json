@@ -47,6 +47,7 @@
       "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
       "floppy_files": [
         "http/unattend.txt",
+        "http/winnt.sif",
         "scripts/*.bat",
         "scripts/*.ps1",
         "virtio/*"
