@@ -8,7 +8,7 @@
     "ssh_port": "22",
     "ssh_wait_timeout": "10000s",
     "iso_url": "http://192.161.14.180/iso/CentOS-7-x86_64-Minimal-1511.iso",
-    "iso_md5": "5a075273f00eb5e0d22ac9e5879972b1",
+    "iso_md5": "88c0437f0a14c6e2c94426df9d43cd67",
     "vm_name": "{{env `VM_NAME`}}"
   },
   "builders": [
