@@ -264,7 +264,7 @@
         <SynchronousCommand wcm:action="add">
           <CommandLine>cmd.exe /c wmic useraccount where "name='administrator'" set PasswordExpires=FALSE</CommandLine>
           <Order>24</Order>
-          <Description>Disable password expiration for vagrant user</Description>
+          <Description>Disable password expiration for administrator user</Description>
         </SynchronousCommand>
         <SynchronousCommand wcm:action="add">
           <CommandLine>cmd.exe /c powershell -File a:\disable-password-complexity.ps1</CommandLine>
