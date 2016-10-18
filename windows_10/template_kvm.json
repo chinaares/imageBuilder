@@ -18,7 +18,7 @@
       "format": "qcow2",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_md5`}}",
-      "iso_checksum_type": "md5",
+      "iso_checksum_type": "sha1",
       "output_directory": "disk",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "qemu_binary": "/usr/bin/kvm",
