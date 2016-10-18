@@ -7,7 +7,7 @@
     "disk_size": "51200",
     "ssh_port": "22",
     "ssh_wait_timeout": "10000s",
-    "iso_url": "http://172.16.2.254/Packer/isos/CentOS-7.0-1406-x86_64-Minimal.iso",
+    "iso_url": "http://192.161.14.180/iso/CentOS-7-x86_64-Minimal-1511.iso",
     "iso_md5": "5a075273f00eb5e0d22ac9e5879972b1",
     "vm_name": "{{env `VM_NAME`}}"
   },
@@ -24,7 +24,7 @@
       "qemu_binary": "/usr/bin/qemu-kvm",
       "qemuargs": [
           [ "-m", "size={{user `memory`}}" ],
-          [ "-smp", "2,sockets=2,cores={{user `core`}},threads=1" ]
+          [ "-smp", "2,sockets=1,cores={{user `core`}},threads=1" ]
       ],
       "disk_size": "{{user `disk_size`}}",
       "http_directory": "http",
@@ -40,7 +40,7 @@
       "ssh_host_port_min": 2222,
       "ssh_host_port_max": 2229,
       "ssh_username": "root",
-      "ssh_password": "yunshan3302",
+      "ssh_password": "security421",
       "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
       "ssh_port": "{{user `ssh_port`}}",
       "boot_command":
