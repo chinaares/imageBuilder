@@ -22,7 +22,8 @@ EOF
 # install cloud packages
 yum --disablerepo=\* --enablerepo=centos7,epel7 -q -y update
 yum --disablerepo=\* --enablerepo=centos7,epel7 -q -y install vim openssh-clients \
-wget net-tools tcpdump vim-minimal 
+wget net-tools tcpdump vim-minimal \
+cloud-init cloud-utils heat-cfntools cloud-utils-growpart dracut-modules-growroot dracut qemu-guest-agent
 
 # Make ssh faster by not waiting on DNS
 echo "UseDNS no" >> /etc/ssh/sshd_config
