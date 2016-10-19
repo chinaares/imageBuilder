@@ -7,14 +7,14 @@ cat <<'EOF' > /etc/yum.repos.d/custom.repo
 
 [centos7]
 name=CentOS-$releasever - Media
-baseurl=http://172.16.2.254/00_mirrors/centos7/centos
+baseurl=http://192.161.14.180/CENTOS7/dvd/centos
 gpgcheck=0
 enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 [epel7]
 name=CentOS-$releasever - Media
-baseurl=http://172.16.2.254/00_mirrors/centos7/epel7
+baseurl=http://192.161.14.180/epel/7/x86_64
 gpgcheck=0
 enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
