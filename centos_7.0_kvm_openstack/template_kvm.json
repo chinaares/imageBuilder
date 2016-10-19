@@ -55,6 +55,7 @@
       "scripts": [
           "scripts/base.sh",
           "scripts/openstack.sh",
+		  "scripts/cloud-init-systemd.sh",
           "scripts/custom_kvm.sh",
           "scripts/zerodisk.sh",
           "scripts/cleanup.sh"
