@@ -3,7 +3,6 @@ yum="yum --disablerepo=\* --enablerepo=centos7,epel7 -q -y"
 set -x
 
 # install cloud packages
-$yum update
 $yum install cloud-init cloud-utils heat-cfntools cloud-utils-growpart dracut-modules-growroot dracut qemu-guest-agent
 dracut -f
 
