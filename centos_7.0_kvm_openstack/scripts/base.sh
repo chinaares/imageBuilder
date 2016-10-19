@@ -20,7 +20,6 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
 EOF
 
 # install cloud packages
-yum provides '*/applydeltarpm'
 yum --disablerepo=\* --enablerepo=centos7,epel7 -q -y update
 yum --disablerepo=\* --enablerepo=centos7,epel7 -q -y install vim openssh-clients \
 wget net-tools tcpdump vim-minimal 
