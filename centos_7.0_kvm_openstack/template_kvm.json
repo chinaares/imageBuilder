@@ -4,7 +4,7 @@
     "build_version": "{{env `BUILD_VERSION`}}",
     "core": "2",
     "memory": "1024",
-    "disk_size": "51200",
+    "disk_size": "10240",
     "ssh_port": "22",
     "ssh_wait_timeout": "10000s",
     "iso_url": "http://192.161.14.180/iso/CentOS-7-x86_64-Minimal-1511.iso",
