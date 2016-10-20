@@ -9,14 +9,14 @@ name=CentOS-$releasever - Media
 baseurl=http://192.161.14.180/CENTOS7/dvd/centos
 gpgcheck=0
 enabled=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 [epel7]
 name=CentOS-$releasever - Media
-baseurl=http://192.161.14.180/epel/7/\$basearch
+baseurl=http://192.161.14.180/epel/7/x86_64
 gpgcheck=0
 enabled=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 EOF
 
 # install cloud packages
