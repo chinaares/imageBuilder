@@ -49,20 +49,20 @@ sed -i "s/^.*requiretty$/Defaults !requiretty/" /etc/sudoers
 yum clean all
 
 # Tweak udev to not auto-gen virtual network devices
-rm -rf /etc/udev/rules.d/70-persistent-net.rules
-cat <<EOF >/tmp/udev.patch.1
-# ignore OpenStack default virtual interfaces
-ENV{MATCHADDR}=="fa:16:3e:*", GOTO="persistent_net_generator_end"
-EOF
+#rm -rf /etc/udev/rules.d/70-persistent-net.rules
+#cat <<EOF >/tmp/udev.patch.1
+## ignore OpenStack default virtual interfaces
+#ENV{MATCHADDR}=="fa:16:3e:*", GOTO="persistent_net_generator_end"
+#EOF
 
 # sed-ism: we need to N below to make this an insert rather than an append
-sed -e '/\# do not use empty address/ {
-  h
-  r /tmp/udev.patch.1
-  g
-  N
-}' \
-  /lib/udev/rules.d/75-persistent-net-generator.rules >/etc/udev/rules.d/75-persistent-net-generator.rules
+#sed -e '/\# do not use empty address/ {
+#  h
+#  r /tmp/udev.patch.1
+#  g
+#  N
+#}' \
+#  /lib/udev/rules.d/75-persistent-net-generator.rules >/etc/udev/rules.d/75-persistent-net-generator.rules
 
 # Set up to grow root in initramfs
 git clone https://github.com/flegmatik/linux-rootfs-resize.git
