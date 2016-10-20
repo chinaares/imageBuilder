@@ -1,6 +1,4 @@
 #!/bin/bash
-yum="yum --disablerepo=\* --enablerepo=centos7,epel7 -q -y"
-set -x
 
 # Change default user to centos and add to wheel
 # Also make it so that we use proper cloud-init
@@ -22,9 +20,7 @@ system_info:
 # vim:syntax=yaml
 EOF
 
-    rm -f anaconda* install.log*
-fi
-
+rm -f anaconda* install.log*
 
 # Configure /etc/hosts automaticaly
 sed -i 's/ssh_pwauth:   0/ssh_pwauth:   0\nmanage_etc_hosts: false/' /etc/cloud/cloud.cfg
@@ -50,7 +46,7 @@ fi
 sed -i "s/^.*requiretty$/Defaults !requiretty/" /etc/sudoers
 
 # Cleanup after yum
-$yum clean all
+yum clean all
 
 # Tweak udev to not auto-gen virtual network devices
 rm -rf /etc/udev/rules.d/70-persistent-net.rules
