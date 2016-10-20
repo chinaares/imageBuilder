@@ -65,19 +65,19 @@ yum clean all
 #  /lib/udev/rules.d/75-persistent-net-generator.rules >/etc/udev/rules.d/75-persistent-net-generator.rules
 
 # Set up to grow root in initramfs
-git clone https://github.com/flegmatik/linux-rootfs-resize.git
-cd linux-rootfs-resize
-./install
+#git clone https://github.com/flegmatik/linux-rootfs-resize.git
+#cd linux-rootfs-resize
+#./install
 
 #cat << EOF > 05-grow-root.sh
 #!/bin/sh
 
-#/bin/echo
-#/bin/echo Resizing root filesystem
+/bin/echo
+/bin/echo Resizing root filesystem
 
-#growpart --fudge 20480 -v /dev/vda 1
-#e2fsck -f /dev/vda1
-#resize2fs /dev/vda1
+growpart --fudge 10240 -v /dev/vda 1
+e2fsck -f /dev/vda1
+resize2fs /dev/vda1
 #EOF
 
 #chmod +x 05-grow-root.sh
