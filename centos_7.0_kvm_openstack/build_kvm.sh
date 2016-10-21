@@ -11,7 +11,7 @@ export VM_NAME
 export BUILD_VERSION
 
 PWD=`pwd`
-FILENAME=${VM_NAME}
+FILENAME=${VM_NAME} 
 PACKER=/usr/bin/packer
 
 if [ -e "${PWD}/disk" ];

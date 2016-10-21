@@ -1,6 +1,6 @@
 # Base install
-sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
-
+mkdir /etc/yum.repos.d-bak
+mv /etc/yum.repos.d/*.repo /etc/yum.repos.d-bak/
 cat <<'EOF' > /etc/yum.repos.d/custom.repo
 # yum --disablerepo=\* --enablerepo=centos7,epel7 [command]
 
@@ -19,12 +19,15 @@ enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 EOF
 
-# install cloud packages
-yum --disablerepo=\* --enablerepo=centos7,epel7 -q -y update
-yum --disablerepo=\* --enablerepo=centos7,epel7 -q -y install vim openssh-clients \
-wget net-tools tcpdump vim-minimal \
-cloud-init cloud-utils heat-cfntools cloud-utils-growpart dracut-modules-growroot qemu-guest-agent \
-git
+echo "==> Applying updates"
+yum -y update
+yum -y install deltarpm vim-minimal wget curl openssh-server openssh-clients net-tools tcpdump
 
-# Make ssh faster by not waiting on DNS
-echo "UseDNS no" >> /etc/ssh/sshd_config
+# Install root certificates
+yum -y install ca-certificates
+#To enable the hypervisor to reboot or shutdown an instance
+yum -y install acpid
+systemctl enable acpid
+
+sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
+

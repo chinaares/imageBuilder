@@ -29,6 +29,7 @@
       "disk_size": "{{user `disk_size`}}",
       "http_directory": "http",
       "headless": true,
+      "accelerator": "kvm",
       "vm_name": "{{user `vm_name`}}",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
@@ -54,11 +55,10 @@
       "type": "shell",
       "scripts": [
           "scripts/base.sh",
-          "scripts/openstack.sh",
-		  "scripts/cloud-init-systemd.sh",
-          "scripts/custom_kvm.sh",
-          "scripts/zerodisk.sh",
-          "scripts/cleanup.sh"
+          "scripts/sshd.sh",
+          "scripts/cloud.sh",
+          "scripts/cleanup.sh",
+          "scripts/zerodisk.sh"
       ]
     }
   ]
