@@ -40,9 +40,15 @@ yum -y install qemu-guest-agent
 # this is not configured via default cloudinit config
 mkdir -p /etc/cloud
 cat > /etc/cloud/cloud.cfg <<EOF
-user: root
+#cloud-config
+users:
+ - default
+
+disable_root: 1
+ssh_pwauth:   1
 disable_root: 0
-ssh_pwauth:   0
+chpasswd:
+  expire: false
 
 mount_default_fields: [~, ~, 'auto', 'defaults,nofail', '0', '2']
 resize_rootfs_tmp: /dev
@@ -62,6 +68,7 @@ cloud_init_modules:
  - set_hostname
  - update_hostname
  - update_etc_hosts
+ - ca-certs
  - rsyslog
  - users-groups
  - ssh
@@ -76,6 +83,10 @@ cloud_config_modules:
  - runcmd
  - package-update-upgrade-install
  - yum-add-repo
+ - timezone
+ - puppet
+ - chef
+ - salt-minion
  - mcollective
 
 cloud_final_modules:
@@ -89,33 +100,41 @@ cloud_final_modules:
  - phone-home
  - final-message
 
-growpart:
-  mode: auto
-  devices: ['/']
-  ignore_growroot_disabled: false
-
-resize_rootfs: true
-
-# vim:syntax=yaml
-EOF
-
-cat > /etc/cloud/cloud.cfg.d/02_user.cfg <<EOL
 system_info:
   default_user:
-    name: cloud-user
+    name: centos
     lock_passwd: true
-    gecos: Cloud user
+    gecos: Cloud User
     groups: [wheel, adm, systemd-journal]
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     shell: /bin/bash
+  distro: rhel
   paths:
     cloud_dir: /var/lib/cloud
     templates_dir: /etc/cloud/templates
   ssh_svcname: sshd
-EOL
+  
+#growpart:
+#  mode: auto
+#  devices: ['/']
+#  ignore_growroot_disabled: false
+#  resize_rootfs: true
 
+# vim:syntax=yaml
+EOF
 
-mkinitrd --preload vmw_pvscsi /boot/initramfs-$(uname -r).img $(uname -r) --force
+#redhat/centos6 will not use mkinitrd ,but dracut instead
+#mkinitrd --preload vmw_pvscsi /boot/initramfs-$(uname -r).img $(uname -r) --force
+
+#Rebuild all initramfs images.
+#This is very important. Without rebuilding the initramfs images, the module won't be 
+#available and nothing will get done.
+#Also note that I'm explicitly rebuilding an image for every kernel package installed - 
+#this is because we might be running kernel A, and just installed newer kernel B with 
+#yum update -y, so if I only used dracut -f only kernel A's image will be rebuilt, and
+# next time we'll boot from kernel B's image, that doesn't have the module.
+#rpm -qa kernel | sed 's/^kernel-//'  | xargs -I {} dracut -f /boot/initramfs-{}.img {}
+dracut -f
 
 # Install haveged for entropy
 yum -y install haveged
