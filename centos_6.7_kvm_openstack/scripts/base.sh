@@ -1,30 +1,48 @@
 # Base install
-
-# Fix slow DNS lookups with VirtualBox's DNS proxy:
-# https://github.com/mitchellh/vagrant/issues/1172#issuecomment-9438465
-echo 'options single-request-reopen' >> /etc/resolv.conf
-
+mkdir /etc/yum.repos.d-bak
+mv /etc/yum.repos.d/*.repo /etc/yum.repos.d-bak/
 cat <<'EOF' > /etc/yum.repos.d/custom.repo
-# yum --disablerepo=\* --enablerepo=centos6,epel6 [command]
+# yum --disablerepo=\* --enablerepo=centos6-1,centos6-2,epel6 [command]
 
-[centos6]
+[centos6-1]
 name=CentOS-$releasever - Media
-baseurl=http://172.16.2.254/00_mirrors/centos6/centos
+baseurl=http://192.161.14.180/CENTOS6/dvd/DVD1
+gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+[centos6-updates]
+name=CentOS-$releasever - Media
+baseurl=http://192.161.14.24/mirrors/centos/6.8/updates/x86_64
+gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+[centos6-extras]
+name=CentOS-$releasever - Media
+baseurl=http://192.161.14.24/mirrors/centos/6.8/extras/x86_64
 gpgcheck=0
 enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 
 [epel6]
 name=CentOS-$releasever - Custom
-baseurl=http://172.16.2.254/00_mirrors/centos6/epel6
+baseurl=http://192.161.14.24/mirrors/epel/6/x86_64
 gpgcheck=0
 enabled=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 
 EOF
- 
-yum --disablerepo=\* --enablerepo=centos6,epel6 -y install vim openssh-clients \
-wget 
 
-# Make ssh faster by not waiting on DNS
-echo "UseDNS no" >> /etc/ssh/sshd_config
+echo "==> Applying updates"
+yum -y update
+yum -y install deltarpm vim-minimal wget curl openssh-server openssh-clients net-tools tcpdump
+
+# Install root certificates
+yum -y install ca-certificates
+#To enable the hypervisor to reboot or shutdown an instance
+yum -y install acpid
+systemctl enable acpid
+
+sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
+
