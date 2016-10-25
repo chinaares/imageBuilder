@@ -10,8 +10,8 @@ rm -f /EMPTY
 # will try to kill the box while the disk is still full and that's bad
 sync
 
-echo "==> Disk usage before cleanup"
-echo ${DISK_USAGE_BEFORE_CLEANUP}
+#echo "==> Disk usage before cleanup"
+#echo ${DISK_USAGE_BEFORE_CLEANUP}
 
 echo "==> Disk usage after cleanup"
 df -h
