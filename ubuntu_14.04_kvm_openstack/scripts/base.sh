@@ -1,17 +1,39 @@
+#!/bin/sh -eux
+
 cat <<'EOF' > /etc/apt/sources.list
-deb http://cn.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb http://cn.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
 EOF
 
-apt-get update
-apt-get install -y --force-yes libglib2.0-0 curl 
+echo "
+Acquire::http::Proxy \"http://192.161.14.179:3142\";
+Acquire::https::Proxy \"http://192.161.14.179:3142\";
+Acquire::ftp::Proxy \"http://192.161.14.179:3142\";
+"| sudo tee /etc/apt/apt.conf.d/90-apt-proxy.conf
 
-echo "UseDNS no" >> /etc/ssh/sshd_config
+apt-get update
+apt-get -y --force-yes dist-upgrade
+PACKAGES="
+libglib2.0-0
+curl
+emacs24-nox
+htop
+nmon
+slurm
+tcpdump
+unzip
+vim-nox
+"
+apt-get install -y --force-yes $PACKAGES
+
+# Add packer user to sudoers.
+echo "packer        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers.d/packer
+sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
