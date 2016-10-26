@@ -41,7 +41,7 @@ apt-get -y autoremove
 apt-get -y install docker-engine
 #apt-get upgrade docker-engine
 # start docker service
-service docker start
+#service docker start
 #To avoid having to use sudo when you use the docker command, 
 #create a Unix group called docker and add users to it. 
 #sudo usermod -a -G docker ubuntu

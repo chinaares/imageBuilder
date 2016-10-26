@@ -119,6 +119,10 @@ system_info:
 # vim:syntax=yaml
 EOF
 
+cat > /etc/cloud/cloud.cfg.d/99-apt-preserve-sources-list.cfg <<EOF
+apt_preserve_sources_list: True
+EOF
+
 #Rebuild all initramfs images.
 #This is very important. Without rebuilding the initramfs images, the module won't be 
 #available and nothing will get done.
