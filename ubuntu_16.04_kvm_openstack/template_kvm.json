@@ -2,13 +2,13 @@
   "variables": {
     "build_name": "{{env `BUILD_NAME`}}",
     "build_version": "{{env `BUILD_VERSION`}}",
-    "core": "1",
+    "core": "2",
     "memory": "1024",
-    "disk_size": "51200",
+    "disk_size": "10240",
     "ssh_port": "22",
-    "ssh_wait_timeout": "10000s",
-    "iso_url": "http://172.16.2.254/Packer/isos/ubuntu-16.04-beta2-server-amd64.iso",
-    "iso_md5": "636dc1110096535f81c817fd00a44e9b",
+    "ssh_wait_timeout": "8h",
+    "iso_url": "http://192.161.14.180/iso/ubuntu-16.04-server-amd64.iso",
+    "iso_md5": "23e97cd5d4145d4105fbf29878534049",
     "vm_name": "{{env `VM_NAME`}}"
   },
   "builders": [
@@ -21,10 +21,10 @@
       "iso_checksum_type": "md5",
       "output_directory": "disk",
       "shutdown_command": "shutdown -h now",
-      "qemu_binary": "/usr/bin/qemu-kvm",
+      "qemu_binary": "/usr/bin/kvm",
       "qemuargs": [
           [ "-m", "size={{user `memory`}}" ],
-          [ "-smp", "2,sockets=2,cores={{user `core`}},threads=1" ]
+          [ "-smp", "2,sockets=1,cores={{user `core`}},threads=1" ]
       ],
       "disk_size": "{{user `disk_size`}}",
       "http_directory": "http",
@@ -40,7 +40,7 @@
       "ssh_host_port_min": 2222,
       "ssh_host_port_max": 2229,
       "ssh_username": "root",
-      "ssh_password": "yunshan3302",
+      "ssh_password": "security421",
       "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
       "ssh_port": "{{user `ssh_port`}}",
       "boot_command":
@@ -70,10 +70,11 @@
           " keyboard-configuration/variant=USA",
           " locale=en_US",
           " netcfg/get_hostname=ubuntu-1604",
-          " netcfg/get_domain=yunshan.net.cn",
+          " netcfg/get_domain=localdomain",
           " noapic",
           " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
-          "<enter>"
+		  " -- <wait>",
+          "<enter><wait>"
       ]
     }
   ],
@@ -82,10 +83,16 @@
       "type": "shell",
       "scripts": [
           "scripts/base.sh",
-          "scripts/custom_kvm.sh",
+          "scripts/sshd.sh",
+          "scripts/cloud.sh",
           "scripts/cleanup.sh",
           "scripts/zerodisk.sh"
       ]
+    },
+    {
+      "type": "file",
+      "source": "files/80-hotplug-cpu-mem.rules",
+      "destination": "/etc/udev/rules.d/80-hotplug-cpu-mem.rules"
     }
   ]
 }
