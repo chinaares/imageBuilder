@@ -122,8 +122,13 @@ EOF
 cat > /etc/cloud/cloud.cfg.d/99-apt-preserve-sources-list.cfg <<EOF
 apt_preserve_sources_list: True
 EOF
+
+cat > /etc/cloud/cloud.cfg.d/99-manage-etc-hosts.cfg <<EOF
+manage_etc_hosts: True
+EOF
+
 # fix the problem - sudo: unable to resolve host
-cp /etc/cloud/templates/hosts.debian.tmpl /etc/cloud/templates/hosts.ubuntu.tmpl
+cp /etc/cloud/templates/hosts.debian.tmpl /etc/cloud/templates/hosts.tmpl
 #Rebuild all initramfs images.
 #This is very important. Without rebuilding the initramfs images, the module won't be 
 #available and nothing will get done.
