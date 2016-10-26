@@ -5,6 +5,15 @@ set -x
 : ${BUILD_VERSION:="v$(date +'%Y%m%d%H%M%S')"}
 : ${BUILD_NAME:="Ubuntu_14.04.4-x86_64_openstack"}
 : ${VM_NAME:="ubuntu14.04.4_openstack"}
+: ${TEMPLATE_FILE:="template_kvm.json"}
+
+if  [ "$1" = "docker" ]
+then
+   echo "**** Build image with docker engine installed. *****"
+   BUILD_NAME="${BUILD_NAME}_d"
+   VM_NAME="${VM_NAME}_d"
+   TEMPLATE_FILE="template_kvm_docker.json"
+fi
 
 export BUILD_NAME
 export VM_NAME
@@ -24,7 +33,7 @@ then
     mkdir -pv ${PWD}/final_images
 fi
 
-$PACKER build template_kvm.json
+$PACKER build ${TEMPLATE_FILE}
 
 cd disk
 qemu-img convert -c -O qcow2 $FILENAME ${BUILD_NAME}-${BUILD_VERSION}.qcow2
