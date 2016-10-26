@@ -60,6 +60,11 @@
           "scripts/cleanup.sh",
           "scripts/zerodisk.sh"
       ]
+    },
+    {
+      "type": "file",
+      "source": "files/80-hotplug-cpu-mem.rules",
+      "destination": "/etc/udev/rules.d/80-hotplug-cpu-mem.rules"
     }
   ]
 }
