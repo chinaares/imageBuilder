@@ -57,7 +57,7 @@ else
 		#yum -y -q install docker-engine
 		# for centos 6
 		yum -y -q install docker-io 
-		echo "none                    /sys/fs/cgroup          cgroup  defaults        0 0" >> /etc/fstab 
+		#echo "none   /sys/fs/cgroup          cgroup  defaults        0 0" >> /etc/fstab 
 	)
 fi
 
