@@ -136,7 +136,21 @@ EOF
 
 #redhat/centos6 will not use mkinitrd ,but dracut instead
 #mkinitrd --preload vmw_pvscsi /boot/initramfs-$(uname -r).img $(uname -r) --force
+cat > /etc/cloud/cloud.cfg.d/99-apt-preserve-sources-list.cfg <<EOF
+apt_preserve_sources_list: True
+EOF
 
+cat > /etc/cloud/cloud.cfg.d/99-manage-etc-hosts.cfg <<EOF
+manage_etc_hosts: True
+EOF
+
+# fix the problem - sudo: unable to resolve host
+#cp /etc/cloud/templates/hosts.redhat.tmpl /etc/cloud/templates/hosts.tmpl
+# add internal mirror server name
+#sudo sed -i '/registry\.sumapay\.com$/d' /etc/cloud/templates/hosts.tmpl
+#echo '192.161.14.101  registry.sumapay.com' | sudo tee -a /etc/cloud/templates/hosts.tmpl
+sudo sed -i '/registry\.sumapay\.com$/d' /etc/cloud/templates/hosts.redhat.tmpl
+echo '192.161.14.101  registry.sumapay.com' | sudo tee -a /etc/cloud/templates/hosts.redhat.tmpl
 #Rebuild all initramfs images.
 #This is very important. Without rebuilding the initramfs images, the module won't be 
 #available and nothing will get done.

@@ -4,6 +4,17 @@
 echo '==> Configuring settings for Console Logging'
 echo "NOZEROCONF=yes" >> /etc/sysconfig/network
 
+# enable tty console
+echo "ttyS0" >> /etc/securetty
+
+cat <<'EOF' > /etc/init/ttyS0.conf
+stop on runlevel [S016]
+start on runlevel [2345]
+respawn
+instance /dev/ttyS0
+exec /sbin/mingetty ttyS0
+EOF
+
 yum -y install grub2-tools
 
 # https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sec-GRUB_2_over_Serial_Console.html#sec-Configuring_GRUB_2
@@ -105,7 +116,7 @@ system_info:
     name: centos
     lock_passwd: true
     gecos: Cloud User
-    groups: [wheel, adm, systemd-journal]
+    groups: [wheel, adm]
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     shell: /bin/bash
   distro: rhel
@@ -125,7 +136,21 @@ EOF
 
 #redhat/centos6 will not use mkinitrd ,but dracut instead
 #mkinitrd --preload vmw_pvscsi /boot/initramfs-$(uname -r).img $(uname -r) --force
+cat > /etc/cloud/cloud.cfg.d/99-apt-preserve-sources-list.cfg <<EOF
+apt_preserve_sources_list: True
+EOF
 
+cat > /etc/cloud/cloud.cfg.d/99-manage-etc-hosts.cfg <<EOF
+manage_etc_hosts: True
+EOF
+
+# fix the problem - sudo: unable to resolve host
+#cp /etc/cloud/templates/hosts.redhat.tmpl /etc/cloud/templates/hosts.tmpl
+# add internal mirror server name
+#sudo sed -i '/registry\.sumapay\.com$/d' /etc/cloud/templates/hosts.tmpl
+#echo '192.161.14.101  registry.sumapay.com' | sudo tee -a /etc/cloud/templates/hosts.tmpl
+sudo sed -i '/registry\.sumapay\.com$/d' /etc/cloud/templates/hosts.redhat.tmpl
+echo '192.161.14.101  registry.sumapay.com' | sudo tee -a /etc/cloud/templates/hosts.redhat.tmpl
 #Rebuild all initramfs images.
 #This is very important. Without rebuilding the initramfs images, the module won't be 
 #available and nothing will get done.

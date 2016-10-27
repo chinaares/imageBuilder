@@ -1,0 +1,71 @@
+{
+  "variables": {
+    "build_name": "{{env `BUILD_NAME`}}",
+    "build_version": "{{env `BUILD_VERSION`}}",
+    "core": "2",
+    "memory": "1024",
+    "disk_size": "10240",
+    "ssh_port": "22",
+    "ssh_wait_timeout": "8h",
+    "iso_url": "http://192.161.14.180/iso/CentOS-7-x86_64-Minimal-1511.iso",
+    "iso_md5": "88c0437f0a14c6e2c94426df9d43cd67",
+    "vm_name": "{{env `VM_NAME`}}"
+  },
+  "builders": [
+    {
+      "name": "{{user `build_name`}}-{{user `build_version`}}",
+      "type": "qemu",
+      "format": "qcow2",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_md5`}}",
+      "iso_checksum_type": "md5",
+      "output_directory": "disk_d",
+      "shutdown_command": "shutdown -h now",
+      "qemu_binary": "/usr/bin/kvm",
+      "qemuargs": [
+          [ "-m", "size={{user `memory`}}" ],
+          [ "-smp", "2,sockets=1,cores={{user `core`}},threads=1" ]
+      ],
+      "disk_size": "{{user `disk_size`}}",
+      "http_directory": "http",
+      "headless": true,
+      "vm_name": "{{user `vm_name`}}",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_wait": "5s",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "vnc_port_min": 5948,
+      "vnc_port_max": 5948,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": "security421",
+      "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
+      "ssh_port": "{{user `ssh_port`}}",
+      "boot_command":
+      [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+          "scripts/base.sh",
+          "scripts/sshd.sh",
+          "scripts/cloud.sh",
+          "scripts/docker.sh",
+          "scripts/docker_mirror_set.sh",
+          "scripts/cleanup.sh",
+          "scripts/zerodisk.sh"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "files/80-hotplug-cpu-mem.rules",
+      "destination": "/etc/udev/rules.d/80-hotplug-cpu-mem.rules"
+    }
+  ]
+}
