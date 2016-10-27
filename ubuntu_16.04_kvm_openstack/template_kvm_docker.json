@@ -86,6 +86,7 @@
           "scripts/sshd.sh",
           "scripts/cloud.sh",
           "scripts/docker.sh",
+          "scripts/docker_mirror_set.sh",
           "scripts/cleanup.sh",
           "scripts/zerodisk.sh"
       ]
