@@ -19,7 +19,7 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_md5`}}",
       "iso_checksum_type": "md5",
-      "output_directory": "disk",
+      "output_directory": "disk_d",
       "shutdown_command": "shutdown -h now",
       "qemu_binary": "/usr/bin/kvm",
       "qemuargs": [

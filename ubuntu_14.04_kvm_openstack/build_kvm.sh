@@ -6,6 +6,7 @@ set -x
 : ${BUILD_NAME:="Ubuntu_14.04.4-x86_64_openstack"}
 : ${VM_NAME:="ubuntu14.04.4_openstack"}
 : ${TEMPLATE_FILE:="template_kvm.json"}
+: ${DISK_DIR:="disk"}
 
 if  [ "$1" = "docker" ]
 then
@@ -13,6 +14,7 @@ then
    BUILD_NAME="${BUILD_NAME}_d"
    VM_NAME="${VM_NAME}_d"
    TEMPLATE_FILE="template_kvm_docker.json"
+   DISK_DIR="disk_d"
 fi
 
 export BUILD_NAME
@@ -23,9 +25,9 @@ PWD=`pwd`
 FILENAME=${VM_NAME}
 PACKER=/usr/bin/packer
 
-if [ -e "${PWD}/disk" ];
+if [ -e "${PWD}/${DISK_DIR}" ];
 then
-    rm -rf ${PWD}/disk
+    rm -rf ${PWD}/${DISK_DIR}
 fi
 
 if [ ! -e "${PWD}/final_images" ];
@@ -35,12 +37,12 @@ fi
 
 $PACKER build ${TEMPLATE_FILE}
 
-cd disk
+cd ${DISK_DIR}
 qemu-img convert -c -O qcow2 $FILENAME ${BUILD_NAME}-${BUILD_VERSION}.qcow2
 cd -
 
-mv ${PWD}/disk/${BUILD_NAME}-${BUILD_VERSION}.qcow2 ${PWD}/final_images
-rm -rf ${PWD}/disk
+mv ${PWD}/${DISK_DIR}/${BUILD_NAME}-${BUILD_VERSION}.qcow2 ${PWD}/final_images
+rm -rf ${PWD}/${DISK_DIR}
 echo "==> Generate files:"
 find ${PWD}/final_images -type f -printf "==> %f\n"
 
