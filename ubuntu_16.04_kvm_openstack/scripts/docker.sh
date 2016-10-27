@@ -1,8 +1,8 @@
 #!/bin/sh -eux
 
 # local registry server 
-sudo sed -i '/registry\.sumapay\.com$/d' /etc/hosts
-echo '192.161.14.101  registry.sumapay.com' | sudo tee -a /etc/hosts
+#sudo sed -i '/registry\.sumapay\.com$/d' /etc/hosts
+#echo '192.161.14.101  registry.sumapay.com' | sudo tee -a /etc/hosts
 
 # install os supplied docker package, maybe too old, so not used
 #apt-get -y update
