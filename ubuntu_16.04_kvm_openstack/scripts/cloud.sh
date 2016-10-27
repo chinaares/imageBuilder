@@ -106,7 +106,7 @@ system_info:
     name: ubuntu
     lock_passwd: true
     gecos: Ubuntu Cloud User
-    groups: [adm, audio, cdrom, dialout, dip, floppy, lxd, netdev, plugdev, sudo, video]
+    groups: [adm, audio, cdrom, dialout, dip, floppy, netdev, plugdev, sudo, video]
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     shell: /bin/bash
   distro: ubuntu
