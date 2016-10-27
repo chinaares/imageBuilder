@@ -67,7 +67,7 @@ service docker start
 chkconfig docker on
 #To avoid having to use sudo when you use the docker command, 
 #create a Unix group called docker and add users to it. 
-usermod -a -G dockerroot centos
+usermod -a -G root centos
 # echo version
 #docker version
 
