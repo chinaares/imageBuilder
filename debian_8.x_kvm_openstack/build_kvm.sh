@@ -4,11 +4,7 @@ set -x
 
 : ${BUILD_VERSION:="v$(date +'%Y%m%d%H%M%S')"}
 : ${BUILD_NAME:="Debian_8-x86_64_openstack"}
-<<<<<<< HEAD
 : ${VM_NAME:="debian8Openstack"}
-=======
-: ${VM_NAME:="debian8_openstack"}
->>>>>>> 892db811ad8dcdd500458b53d6789bad2000b47e
 : ${TEMPLATE_FILE:="template_kvm.json"}
 : ${DISK_DIR:="disk"}
 
@@ -16,11 +12,7 @@ if  [ "$1" = "docker" ]
 then
    echo "**** Build image with docker engine installed. *****"
    BUILD_NAME="${BUILD_NAME}_d"
-<<<<<<< HEAD
    VM_NAME="${VM_NAME}D"
-=======
-   VM_NAME="${VM_NAME}_d"
->>>>>>> 892db811ad8dcdd500458b53d6789bad2000b47e
    TEMPLATE_FILE="template_kvm_docker.json"
    DISK_DIR="disk_d"
 fi
