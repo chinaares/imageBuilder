@@ -17,7 +17,7 @@ apt-get -y install apt-transport-https ca-certificates
 #(W: GPG error: http://apt.dockerproject.org ubuntu-trusty InRelease: 
 #The following signatures couldn't be verified because the public key is not available: NO_PUBKEY F76221572C52609D)
 # curl -sSL https://apt.dockerproject.org/gpg > docker.gpg.key && echo "c836dc13577c6f7c133ad1db1a2ee5f41ad742d11e4ac860d8e658b2b39e6ac1 docker.gpg.key" | sha256sum -c && sudo apt-key add docker.gpg.key && rm docker.gpg.key
-curl -sSL http://192.161.14.180/docker/gpg > docker.gpg.key && echo "c836dc13577c6f7c133ad1db1a2ee5f41ad742d11e4ac860d8e658b2b39e6ac1 docker.gpg.key" | sha256sum -c && sudo apt-key add docker.gpg.key && rm docker.gpg.key
+curl -sSL http://192.161.14.180/docker/gpg > docker.gpg.key && echo "c836dc13577c6f7c133ad1db1a2ee5f41ad742d11e4ac860d8e658b2b39e6ac1 docker.gpg.key" | sha256sum -c && sudo apt-key add docker.gpg.key && rm -f docker.gpg.key
 
 # Add docker sources repo
 lsb_dist="$(lsb_release -si | tr '[:upper:]' '[:lower:]')"
