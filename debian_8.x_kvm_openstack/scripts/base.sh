@@ -9,6 +9,20 @@ deb http://mirrors.ustc.edu.cn/debian-security/ jessie/updates main contrib non-
 deb-src http://mirrors.ustc.edu.cn/debian-security/ jessie/updates main contrib non-free
 EOF
 
+<<<<<<< HEAD
+=======
+cat <<'EOF' > /etc/apt/sources.list
+deb http://mirrors.163.com/debian/ jessie main contrib non-free
+deb-src http://mirrors.163.com/debian jessie main contrib non-free
+deb http://mirrors.163.com/debian/ jessie-proposed-updates main contrib non-free
+deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main contrib non-free
+deb http://mirrors.163.com/debian/ jessie-updates main contrib non-free
+deb-src http://mirrors.163.com/debian/ jessie-updates main contrib non-free
+deb http://mirrors.163.com/debian-security/ jessie/updates main contrib non-free
+deb-src http://mirrors.163.com/debian-security/ jessie/updates main contrib non-free
+EOF
+
+>>>>>>> 892db811ad8dcdd500458b53d6789bad2000b47e
 echo "
 Acquire::http::Proxy \"http://192.161.14.179:3142\";
 Acquire::https::Proxy \"http://192.161.14.179:3142\";
