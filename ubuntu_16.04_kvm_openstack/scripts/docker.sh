@@ -3,6 +3,7 @@
 # local registry server 
 #sudo sed -i '/registry\.sumapay\.com$/d' /etc/hosts
 #echo '192.161.14.101  registry.sumapay.com' | sudo tee -a /etc/hosts
+#curl -sSL http://192.161.14.180/docker/set_mirror.sh | sh -s https://registry.sumapay.com:9443
 
 # install os supplied docker package, maybe too old, so not used
 #apt-get -y update
@@ -45,6 +46,7 @@ apt-get -y install docker-engine
 #To avoid having to use sudo when you use the docker command, 
 #create a Unix group called docker and add users to it. 
 #sudo usermod -a -G docker ubuntu
+#if you are in interractive console,after this you need to logout and log back in to the server.
 # echo version
 docker version
 
